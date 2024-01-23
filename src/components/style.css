@@ -1,0 +1,29 @@
+.chat-discussions {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #3498db;
+  margin-bottom: 20px;
+}
+
+.conversation-list {
+  padding: 0;
+  list-style: none;
+}
+
+.conversation-group {
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.contact-list {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  font-size: 12px;
+  margin-bottom: 5px; /* Spațiu între fiecare element listă */
+}
