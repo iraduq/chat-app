@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@mantine/core'
 
-const API = '192.168.0.164:8000/api/discussions/921772a4-b673-479f-8586-b2bffd3348b3/messages'
+const API = '192.168.0.31:8000/api/discussions/921772a4-b673-479f-8586-b2bffd3348b3/messages'
 
 async function postMessage(message) {
   if (!message) {
@@ -9,8 +9,8 @@ async function postMessage(message) {
   }
 
   const body = {
-    discussion_id: '921772a4-b673-479f-8586-b2bffd3348b3',
-    user_id: '19b22709-8dcc-4a7c-ba65-e6eeecfa5162',
+    discussion_id: '210a0b55-fcb4-43c3-9cd7-0c2813614334',
+    user_id: 'c4f65b98-48b9-4a32-80eb-2325558eed71,',
     value: message,
   }
 
