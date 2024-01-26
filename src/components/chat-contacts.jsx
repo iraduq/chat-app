@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Badge, Button, Table } from '@mantine/core'
 
-const API = 'http://192.168.0.31:8000/api'
+const API = 'http://192.168.115.225:8000/api'
 const CONTACTS_ENDPOINT = '/contacts'
 const DISCUSSIONS_ENDPOINT = '/discussions'
 

@@ -8,6 +8,8 @@ async function postMessage(message) {
     return
   }
 
+  // id Radu: c4f65b98-48b9-4a32-80eb-2325558eed71
+
   const body = {
     discussion_id: '210a0b55-fcb4-43c3-9cd7-0c2813614334',
     user_id: 'c4f65b98-48b9-4a32-80eb-2325558eed71,',

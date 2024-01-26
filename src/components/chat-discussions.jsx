@@ -4,13 +4,16 @@ import './style.css'
 export function ChatDiscussions() {
   const [conversations, setConversations] = useState([])
   const [selectedConversation, setSelectedConversation] = useState(null)
+  const [selectedContact, setSelectedContact] = useState(null)
   const [messages, setMessages] = useState([])
   const userId = 'c4f65b98-48b9-4a32-80eb-2325558eed71'
 
   useEffect(() => {
     const fetchConversations = async () => {
       try {
-        const response = await fetch(`http://192.168.0.31:8000/api/discussions/?user_id=${userId}`)
+        const response = await fetch(
+          `http://192.168.115.225:8000/api/discussions/?user_id=${userId}`,
+        )
         if (!response.ok) {
           throw new Error(`Request failed with status: ${response.status}`)
         }
@@ -30,7 +33,7 @@ export function ChatDiscussions() {
       try {
         if (selectedConversation) {
           const response = await fetch(
-            `http://192.168.0.31:8000/api/discussions/${selectedConversation.id}/messages?user_id=${userId}`,
+            `http://192.168.115.225:8000/api/discussions/${selectedConversation.id}/messages?user_id=${userId}`,
           )
 
           if (!response.ok) {
@@ -48,8 +51,37 @@ export function ChatDiscussions() {
     fetchMessages()
   }, [selectedConversation, userId])
 
+  useEffect(() => {
+    const fetchContactMessages = async () => {
+      try {
+        if (selectedContact) {
+          const response = await fetch(
+            `http://192.168.115.225:8000/api/contacts/${selectedContact.id}/messages?user_id=${userId}`,
+          )
+
+          if (!response.ok) {
+            throw new Error(`Request failed with status: ${response.status}`)
+          }
+
+          const data = await response.json()
+          setMessages(data)
+        }
+      } catch (error) {
+        console.error('Error fetching messages for contact:', error)
+      }
+    }
+
+    fetchContactMessages()
+  }, [selectedContact, userId])
+
   const handleConversationClick = (conversation) => {
     setSelectedConversation(conversation)
+    setSelectedContact(null)
+  }
+
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact)
+    setSelectedConversation(null)
   }
 
   return (
@@ -65,7 +97,9 @@ export function ChatDiscussions() {
             {Array.isArray(conversation.contacts) ? (
               <ul className="contact-list">
                 {conversation.contacts.map((contact) => (
-                  <li key={contact.id}>{contact.message}</li>
+                  <li key={contact.id} onClick={() => handleContactClick(contact)}>
+                    {contact.message}
+                  </li>
                 ))}
               </ul>
             ) : (
