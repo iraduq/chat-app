@@ -30,3 +30,47 @@ li {
   font-size: 12px;
   margin-bottom: 5px;
 }
+:root {
+  --colorBackground: white !important;
+  --colorForeground: darkslategray !important;
+  --colorLink: royalblue !important;
+  --colorCode: crimson !important;
+}
+
+.dark {
+  --colorBackground: lightgrey !important;
+  --colorForeground: lightgray !important;
+  --colorLink: cornflowerblue !important;
+  --colorCode: lightpink !important;
+}
+
+body,
+header,
+nav,
+textarea {
+  background-color: var(--colorBackground) !important;
+  color: var(--colorForeground) !important;
+}
+
+a {
+  color: var(--colorLink) !important;
+}
+
+code {
+  color: var(--colorCode) !important;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.custom-checkbox-input {
+  margin: 0;
+  margin-left: 80px;
+}
+.custom-checkbox-label {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  color: #3498db;
+}

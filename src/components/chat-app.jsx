@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { MantineProvider, AppShell, Modal } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { ChatControls } from './chat-controls'
@@ -16,7 +16,9 @@ export const useDisclosureWrapper = () => {
 }
 
 export function ChatApp() {
+  const darkModeToggleRef = useRef(null)
   const [contactsAreVisible, { open: showContacts, close: hideContacts }] = useDisclosure(false)
+  const [isDarkMode, setIsDarkMode] = useState(false)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -25,8 +27,19 @@ export function ChatApp() {
 
     document.body.appendChild(script)
 
+    const darkModeToggle = darkModeToggleRef.current
+
+    const handleDarkModeToggle = (event) => {
+      const newIsDarkMode = event.target.checked
+      setIsDarkMode(newIsDarkMode)
+      document.body.classList.toggle('dark', newIsDarkMode)
+    }
+
+    darkModeToggle.addEventListener('change', handleDarkModeToggle)
+
     return () => {
       document.body.removeChild(script)
+      darkModeToggle.removeEventListener('change', handleDarkModeToggle)
     }
   }, [])
 
@@ -38,6 +51,19 @@ export function ChatApp() {
         </AppShell.Header>
 
         <AppShell.Navbar className="p-4">
+          <label htmlFor="darkmode" className="d-flex align-items-center">
+            <div className="custom-checkbox mx-auto">
+              <input
+                type="checkbox"
+                id="darkmode"
+                ref={darkModeToggleRef}
+                checked={isDarkMode}
+                onChange={() => setIsDarkMode(!isDarkMode)}
+                className="custom-checkbox-input"
+              />
+              <span className="custom-checkbox-label ms-2">DarkMode</span>
+            </div>
+          </label>
           <ChatDiscussions />
         </AppShell.Navbar>
 
